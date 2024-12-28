@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seni Seviyor Musun?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+        }
+        #message {
+            font-size: 28px;
+            margin: 100px 0 20px;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+        #yes {
+            background-color: #4CAF50;
+        }
+        #no {
+            background-color: #f44336;
+        }
+        #thankYou {
+            font-size: 30px;
+            margin-top: 30px;
+            display: none;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 30px;
+            animation: emojiAnim 1.5s infinite;
+            color: red;
+        }
+        @keyframes emojiAnim {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(-50px); opacity: 0.5; }
+            100% { transform: translateY(0); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="message">Beni seviyor musun?</div>
+    <button id="yes" class="button">Evet</button>
+    <button id="no" class="button">Hayır</button>
+    <div id="thankYou">Ben de seni seviyorummm! ❤️</div>
+
+    <script>
+        const yesButton = document.getElementById('yes');
+        const noButton = document.getElementById('no');
+        const messageDiv = document.getElementById('message');
+        const thankYouMessage = document.getElementById('thankYou');
+
+        // Olumsuz butona tıklanırsa buton yerinden rastgele kayar
+        noButton.addEventListener('click', () => {
+            const maxX = window.innerWidth - noButton.offsetWidth;
+            const maxY = window.innerHeight - noButton.offsetHeight;
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            noButton.style.position = 'absolute';
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+        });
+
+        // Olumlu butona tıklanırsa teşekkür mesajı ve kalp emojileri gösterilir
+        yesButton.addEventListener('click', () => {
+            thankYouMessage.style.display = 'block';
+            generateEmojis();
+        });
+
+        // Ekrana rastgele kalp emojileri eklemek için fonksiyon
+        function generateEmojis() {
+            for (let i = 0; i < 20; i++) {
+                const emoji = document.createElement('div');
+                emoji.classList.add('emoji');
+                emoji.textContent = '❤️';
+                document.body.appendChild(emoji);
+
+                // Rastgele pozisyon ve animasyon
+                const maxX = window.innerWidth - 50;
+                const maxY = window.innerHeight - 50;
+                emoji.style.left = Math.random() * maxX + 'px';
+                emoji.style.top = Math.random() * maxY + 'px';
+
+                // Belirli bir süre sonra emojiyi kaldır
+                setTimeout(() => emoji.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>
